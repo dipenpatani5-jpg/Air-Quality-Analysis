@@ -1,4 +1,4 @@
-
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -17,9 +17,12 @@ st.set_page_config(
 # LOAD DATASET
 # ---------------------------------
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv("Cleaned_AirQuality.csv")
+    csv_path = os.path.join(BASE_DIR, "Cleaned_AirQuality.csv")
+    df = pd.read_csv(csv_path)
 
     df["Date"] = pd.to_datetime(
         df["Date"], utc=True, errors="coerce"
